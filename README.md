@@ -1,5 +1,11 @@
 # Shopify - a simple eCommerce app
 
+> **Attribution:** this is a fork of [alim1496/simple-react-ecommerce](https://github.com/alim1496/simple-react-ecommerce) (MIT).
+> Changes in this fork: GitHub Pages deployment config — `base` path handling in `vite.config.ts`,
+> a `404.html` SPA fallback so deep links survive a refresh, and a router `basename`.
+>
+> **Live demo:** https://mangeshdamre1999.github.io/ecommerce-shop/
+
 Welcome to my E-commerce App! This project is a dummy e-commerce application built using React, Tailwind CSS, Vite, TypeScript, and Redux Toolkit. It aims to showcase various features commonly found in e-commerce platforms, including a homepage, product listing page, cart functionality, and user-authenticated pages like account and wishlist.
 
 ## Features
