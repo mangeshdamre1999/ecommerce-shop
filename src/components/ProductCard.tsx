@@ -7,7 +7,6 @@ import toast from "react-hot-toast";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import PriceSection from "./PriceSection";
-import useAuth from "../hooks/useAuth";
 
 const ProductCard: FC<Product> = ({
   id,
@@ -19,24 +18,23 @@ const ProductCard: FC<Product> = ({
   discountPercentage,
 }) => {
   const dispatch = useAppDispatch();
-  const { requireAuth } = useAuth();
 
+  // Shoppers can fill a cart without an account, the way real stores work.
+  // Sign-in is only required for the wishlist and account pages.
   const addCart = () => {
-    requireAuth(() => {
-      dispatch(
-        addToCart({
-          id,
-          price,
-          title,
-          category,
-          rating,
-          thumbnail,
-          discountPercentage,
-        })
-      );
-      toast.success("item added to cart successfully", {
-        duration: 3000,
-      });
+    dispatch(
+      addToCart({
+        id,
+        price,
+        title,
+        category,
+        rating,
+        thumbnail,
+        discountPercentage,
+      })
+    );
+    toast.success("item added to cart successfully", {
+      duration: 3000,
     });
   };
 

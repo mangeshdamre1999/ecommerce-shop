@@ -4,7 +4,6 @@ import { useAppSelector, useAppDispatch } from "../redux/hooks";
 import { setCartState } from "../redux/features/cartSlice";
 import { updateModal } from "../redux/features/authSlice";
 import { Link } from "react-router-dom";
-import useAuth from "../hooks/useAuth";
 import { FaUser } from "react-icons/fa";
 import CustomPopup from "./CustomPopup";
 import { updateDarkMode } from "../redux/features/homeSlice";
@@ -19,10 +18,9 @@ const Navbar: FC = () => {
   );
   const username = useAppSelector((state) => state.authReducer.username);
   const isDarkMode = useAppSelector((state) => state.homeReducer.isDarkMode);
-  const { requireAuth } = useAuth();
 
   const showCart = () => {
-    requireAuth(() => dispatch(setCartState(true)));
+    dispatch(setCartState(true));
   };
 
   const toggleTheme = () => {

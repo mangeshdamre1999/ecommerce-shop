@@ -6,6 +6,16 @@ interface LoginProps {
   password: string;
 }
 
+/**
+ * Demo credentials. There is no auth server behind this storefront, so the
+ * check runs client-side — fine for a demo, not something to ship. A real
+ * build would post these to a backend and store a signed token instead.
+ */
+export const DEMO_USER = {
+  username: "harshu",
+  password: "mangesh",
+};
+
 const initialState: AuthSlice = {
   isLoggedIn:
     localStorage.getItem("username") !== null &&
@@ -13,6 +23,7 @@ const initialState: AuthSlice = {
     localStorage.getItem("username") !== "",
   modalOpen: false,
   username: localStorage.getItem("username") ?? "",
+  loginError: false,
 };
 
 export const authSlice = createSlice({
@@ -20,27 +31,29 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     updateModal: (state, action: PayloadAction<boolean>) => {
-      return { ...state, modalOpen: action.payload };
+      return { ...state, modalOpen: action.payload, loginError: false };
     },
     doLogin: (state, action: PayloadAction<LoginProps>) => {
+      const { username, password } = action.payload;
       if (
-        action.payload.username === "atuny0" &&
-        action.payload.password === "9uQFF1Lh"
+        username.trim().toLowerCase() === DEMO_USER.username &&
+        password === DEMO_USER.password
       ) {
-        localStorage.setItem("username", "atuny0");
+        localStorage.setItem("username", DEMO_USER.username);
         return {
           ...state,
-          username: "atuny0",
+          username: DEMO_USER.username,
           modalOpen: false,
           isLoggedIn: true,
+          loginError: false,
         };
-      } else {
-        return state;
       }
+      // Wrong credentials used to fail silently, which reads as a broken form.
+      return { ...state, loginError: true };
     },
     doLogout: (state) => {
       localStorage.removeItem("username");
-      return { ...state, username: "", isLoggedIn: false };
+      return { ...state, username: "", isLoggedIn: false, loginError: false };
     },
   },
 });

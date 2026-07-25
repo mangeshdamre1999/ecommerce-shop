@@ -1,117 +1,63 @@
-import { FC, useEffect, useState } from "react";
-import { API_ENDPOINTS } from "../api";
+import { FC } from "react";
+import { useAppSelector } from "../redux/hooks";
 
-interface Address {
-  address: string;
-  city: string;
-  postalCode: string;
-  state: string;
-}
+/**
+ * Account details for the demo user. The catalog API ships its own unrelated
+ * user fixtures, so the page used to render a stranger's profile after signing
+ * in — this keeps the account consistent with whoever is actually logged in.
+ */
+const DEMO_PROFILE = {
+  firstName: "Harsha",
+  lastName: "Damre",
+  email: "harsha@harshas.store",
+  phone: "+91 98765 43210",
+  memberSince: "2024",
+  address: {
+    line1: "Flat 402, Sai Residency, Baner Road",
+    city: "Pune",
+    state: "Maharashtra",
+    postalCode: "411045",
+  },
+};
 
-interface Company {
-  address: Address;
-  department: string;
-  name: string;
-  title: string;
-}
-
-interface UserInfo {
-  id: number;
-  image: string;
-  username: string;
-  firstName: string;
-  lastName: string;
-  maidenName: string;
-  age: number;
-  gender: string;
-  email: string;
-  phone: string;
-  bloodGroup: string;
-  address: Address;
-  company: Company;
-  university: string;
-}
+const Row: FC<{ label: string; value: string }> = ({ label, value }) => (
+  <tr>
+    <td className="font-bold w-40 py-1 align-top">{label}</td>
+    <td className="py-1">{value}</td>
+  </tr>
+);
 
 const Profile: FC = () => {
-  const [info, setInfo] = useState<UserInfo>();
-
-  useEffect(() => {
-    fetch(`${API_ENDPOINTS.USER.replace(":id", "1")}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setInfo(data);
-      });
-  }, []);
+  const username = useAppSelector((state) => state.authReducer.username);
+  const { address } = DEMO_PROFILE;
 
   return (
     <div className="container mx-auto min-h-[83vh] w-full max-w-5xl dark:text-white">
       <h1 className="text-4xl p-4 font-bold font-lora">Your Account</h1>
-      <div className="font-karla grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-1 p-4">
-        <img src={info?.image} alt="pp" className="text-center" />
-        <table>
-          <tbody>
-            <tr>
-              <td className="font-bold">Username</td>
-              <td>{info?.username}</td>
-            </tr>
-            <tr>
-              <td className="font-bold">First Name</td>
-              <td>{info?.firstName}</td>
-            </tr>
-            <tr>
-              <td className="font-bold">Last Name</td>
-              <td>{info?.lastName}</td>
-            </tr>
-            <tr>
-              <td className="font-bold w-32">Maiden Name</td>
-              <td>{info?.maidenName}</td>
-            </tr>
-            <tr>
-              <td className="font-bold">Email</td>
-              <td>{info?.email}</td>
-            </tr>
-            <tr>
-              <td className="font-bold">Phone</td>
-              <td>{info?.phone}</td>
-            </tr>
-            <tr>
-              <td className="font-bold">University</td>
-              <td>{info?.university}</td>
-            </tr>
-            <tr>
-              <td className="font-bold">Age</td>
-              <td>{info?.age}</td>
-            </tr>
-            <tr>
-              <td className="font-bold">Gender</td>
-              <td>{info?.gender}</td>
-            </tr>
-            <tr>
-              <td className="font-bold">Blood Group</td>
-              <td>{info?.bloodGroup}</td>
-            </tr>
-          </tbody>
-        </table>
-        <div className="space-y-2">
-          <div>
-            <h1 className="font-bold">Address</h1>
-            <p>{info?.address.address}</p>
-            <p>
-              {info?.address.city}, {info?.address.postalCode},{" "}
-              {info?.address.state}
-            </p>
-          </div>
-          <div>
-            <h1 className="font-bold">Company</h1>
-            <p>{info?.company.name}</p>
-            <p>{info?.company.title}</p>
-            <p>{info?.company.department}</p>
-            <p>{info?.company.address.address}</p>
-            <p>
-              {info?.company.address.city}, {info?.company.address.postalCode},{" "}
-              {info?.company.address.state}
-            </p>
-          </div>
+      <div className="font-karla grid md:grid-cols-2 grid-cols-1 gap-6 p-4">
+        <div>
+          <h2 className="font-bold text-xl mb-2">Profile</h2>
+          <table>
+            <tbody>
+              <Row label="Username" value={username || DEMO_PROFILE.firstName} />
+              <Row label="First Name" value={DEMO_PROFILE.firstName} />
+              <Row label="Last Name" value={DEMO_PROFILE.lastName} />
+              <Row label="Email" value={DEMO_PROFILE.email} />
+              <Row label="Phone" value={DEMO_PROFILE.phone} />
+              <Row label="Member Since" value={DEMO_PROFILE.memberSince} />
+            </tbody>
+          </table>
+        </div>
+        <div>
+          <h2 className="font-bold text-xl mb-2">Default Delivery Address</h2>
+          <p>
+            {DEMO_PROFILE.firstName} {DEMO_PROFILE.lastName}
+          </p>
+          <p>{address.line1}</p>
+          <p>
+            {address.city}, {address.state} {address.postalCode}
+          </p>
+          <p>{DEMO_PROFILE.phone}</p>
         </div>
       </div>
     </div>

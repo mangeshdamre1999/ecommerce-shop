@@ -69,41 +69,37 @@ const SingleProduct: FC = () => {
   }, [productID, sCategory]);
 
   const addCart = () => {
-    requireAuth(() => {
-      if (product)
-        dispatch(
-          addToCart({
-            id: product.id,
-            price: product.price,
-            title: product.title,
-            category: product.category,
-            rating: product.rating,
-            thumbnail: product.thumbnail,
-            discountPercentage: product.discountPercentage,
-          })
-        );
-      toast.success("item added to cart successfully", {
-        duration: 3000,
-      });
+    if (product)
+      dispatch(
+        addToCart({
+          id: product.id,
+          price: product.price,
+          title: product.title,
+          category: product.category,
+          rating: product.rating,
+          thumbnail: product.thumbnail,
+          discountPercentage: product.discountPercentage,
+        })
+      );
+    toast.success("item added to cart successfully", {
+      duration: 3000,
     });
   };
 
   const buyNow = () => {
-    requireAuth(() => {
-      if (product)
-        dispatch(
-          addToCart({
-            id: product.id,
-            price: product.price,
-            title: product.title,
-            category: product.category,
-            rating: product.rating,
-            thumbnail: product.thumbnail,
-            discountPercentage: product.discountPercentage,
-          })
-        );
-      dispatch(setCartState(true));
-    });
+    if (product)
+      dispatch(
+        addToCart({
+          id: product.id,
+          price: product.price,
+          title: product.title,
+          category: product.category,
+          rating: product.rating,
+          thumbnail: product.thumbnail,
+          discountPercentage: product.discountPercentage,
+        })
+      );
+    dispatch(setCartState(true));
   };
 
   const addWishlist = () => {
