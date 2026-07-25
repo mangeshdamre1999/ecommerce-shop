@@ -1,6 +1,6 @@
 import { FC, FormEvent, useState } from "react";
 import { useAppSelector, useAppDispatch } from "../redux/hooks";
-import { DEMO_USER, doLogin, updateModal } from "../redux/features/authSlice";
+import { doLogin, updateModal } from "../redux/features/authSlice";
 import { FaUnlock } from "react-icons/fa";
 import { RiLockPasswordFill, RiUser3Fill } from "react-icons/ri";
 import { GiArchiveRegister } from "react-icons/gi";
@@ -37,11 +37,9 @@ const LoginModal: FC = () => {
                 <h3 className="font-bold text-center text-xl">Register</h3>
                 <GiArchiveRegister />
               </div>
-              <p className="leading-4">
-                Registration is not open yet. Sign in with the demo account —{" "}
-                <b>{DEMO_USER.username}</b> as username and{" "}
-                <b>{DEMO_USER.password}</b> as password. Both are pre-filled in
-                the placeholders.{" "}
+              <p className="leading-5">
+                New accounts are not open for registration yet. Please sign in
+                with an existing account.{" "}
                 <span
                   className="text-blue-500 cursor-pointer hover:underline"
                   onClick={() => setClicked(false)}
@@ -62,7 +60,7 @@ const LoginModal: FC = () => {
                   <input
                     data-test="input-username"
                     type="text"
-                    placeholder={`Your username here... (${DEMO_USER.username})`}
+                    placeholder="Username"
                     className="border w-full border-black py-2 px-8 rounded dark:bg-slate-600"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
@@ -75,15 +73,14 @@ const LoginModal: FC = () => {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     type="password"
-                    placeholder={`Your password here... (${DEMO_USER.password})`}
+                    placeholder="Password"
                     className="border w-full border-black py-2 px-8 rounded dark:bg-slate-600"
                   />
                   <RiLockPasswordFill className="absolute top-3 left-2 text-lg" />
                 </div>
                 {loginError && (
                   <p className="text-red-500 text-sm" data-test="login-error">
-                    Incorrect username or password. Try {DEMO_USER.username} /{" "}
-                    {DEMO_USER.password}.
+                    Incorrect username or password.
                   </p>
                 )}
                 <input
