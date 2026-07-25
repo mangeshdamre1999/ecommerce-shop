@@ -11,17 +11,20 @@ import { Product } from "../models/Product";
 import LatestProducts from "../components/LatestProducts";
 import Banner from "../components/Banner";
 import { API_ENDPOINTS } from "../api";
+import { filterAffordable } from "../utils/currency";
 
 const Home: FC = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     const fetchProducts = () => {
-      fetch(`${API_ENDPOINTS.PRODUCTS}?limit=24`)
+      // Fetch wider than the 16 slots below, because the price ceiling filters
+      // a chunk of the catalog out before we slice.
+      fetch(`${API_ENDPOINTS.PRODUCTS}?limit=100`)
         .then((res) => res.json())
         .then(({ products }) => {
           const productList: Product[] = [];
-          products.forEach((product: Product) => {
+          filterAffordable<Product>(products).forEach((product: Product) => {
             productList.push({
               id: product.id,
               title: product.title,

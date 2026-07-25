@@ -3,6 +3,7 @@ import { RiRefund2Fill } from "react-icons/ri";
 import { MdSupportAgent } from "react-icons/md";
 import { FC } from "react";
 import FeatureCard from "./FeatureCard";
+import { formatINR, FREE_SHIPPING_INR } from "../utils/currency";
 
 const data = [
   {
@@ -18,7 +19,7 @@ const data = [
   {
     icon: <TbDiscount className="text-4xl dark:text-white" />,
     title: "Member Discount",
-    desc: "On order over $99",
+    desc: `On orders over ${formatINR(FREE_SHIPPING_INR)}`,
   },
   {
     icon: <MdSupportAgent className="text-4xl dark:text-white" />,

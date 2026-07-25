@@ -6,6 +6,7 @@ import { updateLoading } from "../redux/features/homeSlice";
 import SortProducts from "../components/SortProducts";
 import PaginatedProducts from "../components/PaginatedProducts";
 import { API_ENDPOINTS } from "../api";
+import { filterAffordable } from "../utils/currency";
 
 interface Category {
     slug: string;
@@ -42,8 +43,10 @@ const SearchPage: FC = () => {
 
                 const productsData = {
                     ...data,
-                    products: data.products.filter((p: Product) =>
-                        p.title.toLowerCase().includes(query.toLowerCase())
+                    products: filterAffordable<Product>(
+                        data.products.filter((p: Product) =>
+                            p.title.toLowerCase().includes(query.toLowerCase())
+                        )
                     ),
                 };
 

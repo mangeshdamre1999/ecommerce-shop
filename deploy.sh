@@ -9,7 +9,8 @@ REPO_URL="https://github.com/mangeshdamre1999/ecommerce-shop.git"
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
 
-npm run build
+# GH_PAGES switches the Vite base to the repo sub-path (see vite.config.ts).
+GH_PAGES=1 npm run build
 
 cd dist
 touch .nojekyll                 # stop Pages running the output through Jekyll

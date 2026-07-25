@@ -7,6 +7,7 @@ import { updateLoading } from "../redux/features/homeSlice";
 import SortProducts from "../components/SortProducts"
 import PaginatedProducts from "../components/PaginatedProducts";
 import { API_ENDPOINTS } from "../api";
+import { filterAffordable } from "../utils/currency";
 
 const SingleCategory: FC = () => {
   const dispatch = useAppDispatch();
@@ -22,7 +23,7 @@ const SingleCategory: FC = () => {
         .then((res) => res.json())
         .then((data) => {
           const { products } = data;
-          setProductList(products);
+          setProductList(filterAffordable<Product>(products));
           dispatch(updateLoading(false));
         });
     };

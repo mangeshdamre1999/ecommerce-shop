@@ -4,6 +4,7 @@ import { addCategories } from "../redux/features/productSlice";
 import { Link } from "react-router-dom";
 import { updateLoading } from "../redux/features/homeSlice";
 import { API_ENDPOINTS } from "../api";
+import { filterAffordable } from "../utils/currency";
 
 const AllCategories: FC = () => {
   const dispatch = useAppDispatch();
@@ -14,14 +15,31 @@ const AllCategories: FC = () => {
   const isLoading = useAppSelector((state) => state.homeReducer.isLoading);
 
   useEffect(() => {
+    // The price ceiling empties out a few categories entirely (cars, laptops,
+    // furniture...), so list only categories that still have something to sell
+    // rather than linking to pages that render nothing.
     const fetchCategories = () => {
       dispatch(updateLoading(true));
-      fetch(`${API_ENDPOINTS.PRODUCTS_CATEGORIES}`)
-        .then((res) => res.json())
-        .then((data) => {
-          dispatch(addCategories(data));
+      Promise.all([
+        fetch(`${API_ENDPOINTS.PRODUCTS_CATEGORIES}`).then((res) => res.json()),
+        fetch(`${API_ENDPOINTS.PRODUCTS}?limit=500&select=price,category`).then(
+          (res) => res.json()
+        ),
+      ])
+        .then(([categories, { products }]) => {
+          const stocked = new Set(
+            filterAffordable<{ price: number; category: string }>(
+              products
+            ).map((p) => p.category)
+          );
+          dispatch(
+            addCategories(
+              categories.filter((c: { slug: string }) => stocked.has(c.slug))
+            )
+          );
           dispatch(updateLoading(false));
-        });
+        })
+        .catch(() => dispatch(updateLoading(false)));
     };
     if (allCategories.length === 0) fetchCategories();
   }, [allCategories, dispatch]);

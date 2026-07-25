@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { emptyCart, setCartState } from "../redux/features/cartSlice";
 import CartRow from "./CartRow";
 import toast from "react-hot-toast";
+import { formatPrice } from "../utils/currency";
 
 const Cart: FC = () => {
   const dispatch = useAppDispatch();
@@ -11,15 +12,17 @@ const Cart: FC = () => {
   const items = useAppSelector((state) => state.cartReducer.cartItems);
   const [checkout, setCheckout] = useState(false);
 
+  // Returns the total in catalog currency; formatPrice converts it to INR.
+  // Note the discount guard is on the multiplication, not the whole item —
+  // an item with no discount still has to count towards the total.
   const calculateTotal = () => {
     let total = 0;
     items.forEach((item) => {
-      if (item.quantity && item.discountPercentage)
-        total +=
-          (item.price - (item.price * item.discountPercentage) / 100) *
-          item.quantity;
+      if (!item.quantity) return;
+      const discount = item.discountPercentage ?? 0;
+      total += (item.price - (item.price * discount) / 100) * item.quantity;
     });
-    return total.toFixed(2);
+    return total;
   };
 
   const handleOrder = () => {
@@ -87,7 +90,9 @@ const Cart: FC = () => {
               <>
                 <div className="flex items-center justify-between p-2">
                   <h2 className="font-bold text-2xl">Total</h2>
-                  <h2 className="font-bold text-2xl">${calculateTotal()}</h2>
+                  <h2 className="font-bold text-2xl">
+                    {formatPrice(calculateTotal())}
+                  </h2>
                 </div>
                 <button
                   type="button"

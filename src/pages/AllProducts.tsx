@@ -6,6 +6,7 @@ import { updateLoading } from "../redux/features/homeSlice";
 import SortProducts from "../components/SortProducts"
 import PaginatedProducts from "../components/PaginatedProducts";
 import { API_ENDPOINTS } from "../api";
+import { filterAffordable } from "../utils/currency";
 
 const AllProducts: FC = () => {
   const dispatch = useAppDispatch();
@@ -21,7 +22,7 @@ const AllProducts: FC = () => {
       fetch(`${API_ENDPOINTS.PRODUCTS}?limit=500`)
         .then((res) => res.json())
         .then(({ products }) => {
-          dispatch(addProducts(products));
+          dispatch(addProducts(filterAffordable<Product>(products)));
           dispatch(updateLoading(false));
         });
     };
