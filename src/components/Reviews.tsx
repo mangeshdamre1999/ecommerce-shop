@@ -4,64 +4,64 @@ import { ReviewItem } from "../models/ReviewItem";
 
 const reviews: ReviewItem[] = [
   {
-    username: "atuny0",
+    username: "Ananya S.",
     rating: 5,
     review:
-      "The product is nice. I got the delivery on time. I am using it for the last four months. My exprience with this product is very good.",
+      "Product is genuine and the packaging was solid. Delivered a day earlier than promised. Using it for four months now with no complaints.",
   },
   {
-    username: "hbingley1",
+    username: "Rohit K.",
     rating: 4,
     review:
-      "I am satisfied with the value for money of the product. Everything seems nice but the delivery time seems a bit delayed",
+      "Good value for the price. Everything works as described, only the delivery took a couple of days longer than the estimate.",
   },
   {
-    username: "rshawe2",
+    username: "Priya M.",
     rating: 3,
     review:
-      "I found the product not long lasting. The quality also seemed a bit downgraded. I don't think its value for money.",
+      "Did not last as long as I expected. The quality feels a step below what the photos suggest, so not quite value for money.",
   },
   {
-    username: "yraigatt3",
+    username: "Vikram R.",
     rating: 4,
     review:
-      "The product is nice. I got the delivery on time. I am using it for the last four months. My exprience with this product is very good.",
+      "Exactly what was listed and it arrived on time. Happy with the purchase overall, would order from here again.",
   },
   {
-    username: "kmeus4",
+    username: "Sneha P.",
     rating: 3,
     review:
-      "The quality could have been better. I feel like wasting my money. I should have been more careful while buying it.",
+      "The quality could have been better for this price. I should have compared a few more options before buying.",
   },
   {
-    username: "dpettegre6",
+    username: "Arjun N.",
     rating: 5,
     review:
-      "The product is nice. I got the delivery on time. I am using it for the last four months. My exprience with this product is very good.",
+      "Excellent quality and quick delivery. Customer support answered my query the same day, which I did not expect.",
   },
   {
-    username: "ggude7",
+    username: "Meera J.",
     rating: 4,
     review:
-      "I am satisfied with the value for money of the product. Everything seems nice but the delivery time seems a bit delayed",
+      "Satisfied with the value for money. Everything seems nice, though the delivery was slightly delayed on my pincode.",
   },
   {
-    username: "nloiterton8",
+    username: "Karthik V.",
     rating: 3,
     review:
-      "I found the product not long lasting. The quality also seemed a bit downgraded. I don't think its value for money.",
+      "Average product. It does the job but I found the finish a bit rough compared to what I was expecting.",
   },
   {
-    username: "umcgourty9",
+    username: "Divya A.",
     rating: 4,
     review:
-      "The product is nice. I got the delivery on time. I am using it for the last four months. My exprience with this product is very good.",
+      "Good buy at this price. Arrived well packed and on schedule, and it has held up fine so far.",
   },
   {
-    username: "rhallawellb",
+    username: "Sanjay T.",
     rating: 3,
     review:
-      "The quality could have been better. I feel like wasting my money. I should have been more careful while buying it.",
+      "It is okay for occasional use. Not the most durable, so keep expectations in line with the price.",
   },
 ];
 

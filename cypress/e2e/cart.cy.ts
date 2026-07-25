@@ -3,8 +3,8 @@ describe("testing the cart functionalities", () => {
     cy.visit("/");
     cy.get('[data-test="login-btn"]').click();
     cy.get('[data-test="login-container"]').should("be.visible");
-    cy.get('[data-test="input-username"]').type("atuny0");
-    cy.get('[data-test="input-password"]').type("9uQFF1Lh");
+    cy.get('[data-test="input-username"]').type("harshu");
+    cy.get('[data-test="input-password"]').type("mangesh");
     cy.get('[data-test="input-submit"]').click();
   });
 
@@ -25,7 +25,7 @@ describe("testing the cart functionalities", () => {
     cy.get('[data-test="cart-close"]').click();
   });
 
-  it.only("checkout and order confirm works", () => {
+  it("checkout and order confirm works", () => {
     cy.get('[data-test="add-cart-btn"]').first().click();
     cy.get('[data-test="cart-btn"]').click();
     cy.get('[data-test="cart-increase-btn"]').click();

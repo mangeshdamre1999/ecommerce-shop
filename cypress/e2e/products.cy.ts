@@ -38,7 +38,7 @@ describe("testing the products page", () => {
     });
   });
 
-  it.only("products are sorted", () => {
+  it("products are sorted", () => {
     cy.wait("@products").then(() => {
       cy.get('[data-test="product-card"]')
         .first()

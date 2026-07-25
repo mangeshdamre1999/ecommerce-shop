@@ -20,8 +20,8 @@ describe("testing navbar functions", () => {
 
   it("login & logout works properly", () => {
     cy.get('[data-test="login-btn"]').click();
-    cy.get('[data-test="input-username"]').type("atuny0");
-    cy.get('[data-test="input-password"]').type("9uQFF1Lh");
+    cy.get('[data-test="input-username"]').type("harshu");
+    cy.get('[data-test="input-password"]').type("mangesh");
     cy.get('[data-test="input-submit"]').click();
     cy.get('[data-test="username-popup"]').click();
     cy.get('[data-test="popup-content-list"]').should("be.visible");
